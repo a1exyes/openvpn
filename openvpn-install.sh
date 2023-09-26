@@ -1177,7 +1177,9 @@ function revokeClient() {
 			read -rp "Выберите одного пользователя [1-$NUMBEROFCLIENTS]: " CLIENTNUMBER
 		fi
 	done
-	if [[ $CLIENTNUMBER == $NUMBEROFCLIENTS+1]]; then
+	
+#NUMBERFOREXIT = NUMBEROFCLIENTS + 1;
+	if [[ $CLIENTNUMBER == ++$NUMBEROFCLIENTS]]; then
 			manageMenu
 	else
 	CLIENT=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$CLIENTNUMBER"p)
