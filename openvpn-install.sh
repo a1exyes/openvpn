@@ -1165,7 +1165,10 @@ function revokeClient() {
 	fi
 
 	echo ""
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 	echo "Выберите из сущетсвующих пользователей чей сертификат вы хотели бы отозвать"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	echo ""
 	tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
 	until [[ $CLIENTNUMBER -ge 1 && $CLIENTNUMBER -le $NUMBEROFCLIENTS ]]; do
 		if [[ $CLIENTNUMBER == '1' ]]; then
@@ -1174,6 +1177,9 @@ function revokeClient() {
 			read -rp "Выберите одного пользователя [1-$NUMBEROFCLIENTS]: " CLIENTNUMBER
 		fi
 	done
+	if [[ $CLIENTNUMBER == '0' ]]; then
+			manageMenu
+	else
 	CLIENT=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$CLIENTNUMBER"p)
 	cd /etc/openvpn/easy-rsa/ || return
 	./easyrsa --batch revoke "$CLIENT"
@@ -1188,6 +1194,7 @@ function revokeClient() {
 
 	echo ""
 	echo "Сертификат для клиента $CLIENT был отозван."
+	fi
 }
 
 function removeUnbound() {
@@ -1304,11 +1311,12 @@ function removeOpenVPN() {
 
 function manageMenu() {
 	echo ""
-	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	echo "###############################"
 	echo "Добро пожаловать в меню OpenVPN"
-	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-	echo ""
+	echo "###############################"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~"
 	echo "Что бы вы хотели сделать?"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~"
 	echo "   1) Добавить нового пользователя"
 	echo "   2) Удалить существующего пользователя"
 	echo "   3) Деинсталлировать OpenVPN"
