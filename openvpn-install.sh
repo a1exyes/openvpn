@@ -1059,15 +1059,15 @@ verb 3" >>/etc/openvpn/client-template.txt
 
 function newClient() {
 	echo ""
-	echo "Tell me a name for the client."
-	echo "The name must consist of alphanumeric character. It may also include an underscore or a dash."
+	echo "Введите имя нового для нового подьзователя"
+	echo "Имя может сожержать строчные и прописные буквы, цифры, подчеркивание или тире."
 
 	until [[ $CLIENT =~ ^[a-zA-Z0-9_-]+$ ]]; do
-		read -rp "Client name: " -e CLIENT
+		read -rp "Имя пользователя: " -e CLIENT
 	done
 
 	echo ""
-	echo "Do you want to protect the configuration file with a password?"
+	echo "Хотите защитить файл конфигурации паролем?"
 	echo "(e.g. encrypt the private key with a password)"
 	echo "   1) Add a passwordless client"
 	echo "   2) Use a password for the client"
@@ -1295,24 +1295,21 @@ function removeOpenVPN() {
 			removeUnbound
 		fi
 		echo ""
-		echo "OpenVPN removed!"
+		echo "OpenVPN деинсталирован!"
 	else
 		echo ""
-		echo "Removal aborted!"
+		echo "Деинсталяция прервана!"
 	fi
 }
 
 function manageMenu() {
-	echo "Welcome to OpenVPN-install!"
-	echo "The git repository is available at: https://github.com/angristan/openvpn-install"
+	echo "Добро пожаловать в меню to OpenVPN"
 	echo ""
-	echo "It looks like OpenVPN is already installed."
-	echo ""
-	echo "What do you want to do?"
-	echo "   1) Add a new user"
-	echo "   2) Revoke existing user"
-	echo "   3) Remove OpenVPN"
-	echo "   4) Exit"
+	echo "Что вы хотите сделать?"
+	echo "   1) Добавить нового пользователя"
+	echo "   2) Удалить существующего пользователя"
+	echo "   3) Деинсталлировать OpenVPN"
+	echo "   4) Выйти"
 	until [[ $MENU_OPTION =~ ^[1-4]$ ]]; do
 		read -rp "Select an option [1-4]: " MENU_OPTION
 	done
