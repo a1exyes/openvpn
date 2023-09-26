@@ -1180,8 +1180,8 @@ function revokeClient() {
 	
  NUMBERFOREXIT = NUMBEROFCLIENTS + 1
 	if [[ $CLIENTNUMBER == $NUMBERFOREXIT]]; then
-			manageMenu
-	else
+			echo "открыть сеню?"
+			
 	CLIENT=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$CLIENTNUMBER"p)
 	cd /etc/openvpn/easy-rsa/ || return
 	./easyrsa --batch revoke "$CLIENT"
@@ -1196,7 +1196,6 @@ function revokeClient() {
 
 	echo ""
 	echo "Сертификат для клиента $CLIENT был отозван."
-	fi
 }
 
 function removeUnbound() {
